@@ -1,2 +1,6 @@
-package com.gamebacket.vercel.app.constants;public enum UserRole {
+package com.gamebacket.vercel.app.constants;
+
+public enum UserRole {
+    USER,
+    ADMIN
 }
