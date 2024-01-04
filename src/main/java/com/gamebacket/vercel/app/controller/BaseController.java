@@ -18,7 +18,7 @@ public class BaseController {
             @RequestBody User user
     ){
        baseService.createNewAccount(user);
-       return ResponseEntity.ok("Saved successfully");
+       return ResponseEntity.ok("created successfully");
     }
 
 }

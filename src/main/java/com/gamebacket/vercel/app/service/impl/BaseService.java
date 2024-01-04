@@ -33,9 +33,13 @@ public class BaseService implements BaseInterface {
            throw new EmptyOrNullValueException("At least one phone number is required");
         }
 
+        Customer checkEmail = userRepo.findByUserEmail(user.getEmail());
+        if (checkEmail != null){
+            throw new EmptyOrNullValueException("Already exists a user with email: "+user.getEmail());
+        }
         Customer customer = new Customer();
         customer.setFull_name(user.getFirst_name()+" "+user.getLast_name());
-        customer.setUser_email(user.getEmail());
+        customer.setUserEmail(user.getEmail());
         customer.setPasswords(user.getPassword());
         if (user.getEmail().endsWith("@gamebacket.com") || user.getFirst_name().contains("Admin")){
          customer.setRoles(UserRole.ADMIN);
