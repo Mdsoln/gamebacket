@@ -30,7 +30,7 @@ public class SecurityConfig {
                         authorise
                                 .requestMatchers("/api/v1/base/**")
                                 .permitAll()
-                                .requestMatchers("/api/v1/base/createAccount")
+                                .requestMatchers("/api/v1/base/createAccount","/api/v1/base/deleteUser/{userId}")
                                 .permitAll()
                         )).formLogin(
                                 form->form

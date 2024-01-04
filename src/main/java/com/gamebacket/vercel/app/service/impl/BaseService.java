@@ -63,4 +63,9 @@ public class BaseService implements BaseInterface {
 
         customer.setContact(contacts);
     }
+
+    @Override
+    public void deleteUserById(Long userId) {
+        userRepo.deleteById(userId);
+    }
 }

@@ -5,4 +5,6 @@ import com.gamebacket.vercel.app.dto.User;
 public interface BaseInterface {
     void createNewAccount(User user);
 
+    void deleteUserById(Long userId);
+
 }

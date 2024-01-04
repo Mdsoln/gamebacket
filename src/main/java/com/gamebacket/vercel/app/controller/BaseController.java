@@ -3,6 +3,7 @@ package com.gamebacket.vercel.app.controller;
 import com.gamebacket.vercel.app.dto.User;
 import com.gamebacket.vercel.app.service.impl.BaseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,4 +22,9 @@ public class BaseController {
        return ResponseEntity.ok("created successfully");
     }
 
+    @DeleteMapping("/deleteUser/{userId}")
+    public ResponseEntity<String> deleteUserAccount(@PathVariable("userId") Long userId){
+        baseService.deleteUserById(userId);
+        return new ResponseEntity<>("deleted successfully", HttpStatus.OK);
+    }
 }
