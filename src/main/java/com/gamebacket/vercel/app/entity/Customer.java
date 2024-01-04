@@ -25,7 +25,7 @@ public class Customer {
     private String full_name;
 
     @Column(name = "email",nullable = false)
-    private String user_email;
+    private String userEmail;
 
     private String passwords;
 
