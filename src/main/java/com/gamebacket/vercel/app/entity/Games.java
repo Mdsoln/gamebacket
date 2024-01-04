@@ -48,13 +48,13 @@ public class Games {
    @Column(name = "released",nullable = false)
    private String releaseDate;
 
-
-
-
    @Column(name = "quantity",nullable = false)
-   private int productQuantity;
+   private int gameQuantity;
 
    @Column(name = "category",nullable = false)
-   private String productCategory;
+   private String gameCategory;
+
+   @Column(name = "image", nullable = false, columnDefinition = "BLOB")
+   private byte[] image;
 
 }
