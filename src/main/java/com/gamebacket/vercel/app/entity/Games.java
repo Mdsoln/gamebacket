@@ -45,7 +45,8 @@ public class Games {
 
    private String requirements;
 
-
+   @Column(name = "released",nullable = false)
+   private String releaseDate;
 
 
 
