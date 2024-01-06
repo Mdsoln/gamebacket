@@ -25,10 +25,10 @@ public class Games {
    private String gamePlatforms;
 
    @Column(name = "price",nullable = false)
-   private float ActualPrice;
+   private float actualPrice;
 
    @Column(name = "discount",nullable = false)
-   private float DiscountPrice;
+   private float discountPrice;
 
    @Column(name = "playtime",nullable = false)
    private int gamePlaytime;
@@ -51,10 +51,5 @@ public class Games {
    @Column(name = "quantity",nullable = false)
    private int gameQuantity;
 
-   @Column(name = "category",nullable = false)
-   private String gameCategory;
-
-   @Column(name = "image", nullable = false, columnDefinition = "BLOB")
-   private byte[] image;
-
+   private String image;
 }

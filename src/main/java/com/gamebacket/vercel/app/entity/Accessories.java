@@ -25,7 +25,5 @@ public class Accessories {
     private float price;
     private String description;
     private int quantity;
-
-    @Column(name = "image",nullable = false,columnDefinition = "BLOB")
-    private byte[] image;
+    private String image;
 }
