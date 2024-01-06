@@ -1,11 +1,9 @@
 package com.gamebacket.vercel.app.service.inter;
 
-import com.gamebacket.vercel.app.dto.AccessoryRequest;
-import com.gamebacket.vercel.app.dto.GamePublisher;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface AdminInterface {
-    void publishNewGame(GamePublisher gamePublisher);
+    void publishNewGame(String gameTitle, String gamePlatforms, float actualPrice, float discountPrice, int gamePlaytime, int gameAge, String genre, String website, String tags, String aboutGame, String releaseDate, int gameQuantity, String requirements, MultipartFile imagePath);
 
-    void publishAccessories(AccessoryRequest accessoryRequest);
-
+    void publishAccessories(String productName, String category, String description, float price, int quantity, MultipartFile imagePath);
 }
