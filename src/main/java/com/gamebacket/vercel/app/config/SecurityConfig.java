@@ -32,6 +32,8 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers("/api/v1/base/createAccount","/api/v1/base/deleteUser/{userId}")
                                 .permitAll()
+                                .requestMatchers("/api/v1/admin/publishAccessory","/api/v1/admin/publishAccImage")
+                                .permitAll()
                         )).formLogin(
                                 form->form
                                         .loginPage("/login")
