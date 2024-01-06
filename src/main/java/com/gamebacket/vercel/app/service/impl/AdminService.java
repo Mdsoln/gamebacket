@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class AdminService implements AdminInterface {
@@ -18,7 +20,7 @@ public class AdminService implements AdminInterface {
     @Override
     public void publishNewGame(String gameTitle, String gamePlatforms, float actualPrice,
                                float discountPrice, int gamePlaytime, int gameAge, String genre,
-                               String website, String tags, String aboutGame, String releaseDate,
+                               String website, String tags, String aboutGame, LocalDate releaseDate,
                                int gameQuantity, String requirements, MultipartFile imagePath) {
         Games games = Games
                 .builder()

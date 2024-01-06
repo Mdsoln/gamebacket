@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping(path = "/api/v1/admin")
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class AdminController {
             @RequestParam(name = "website")@Valid String website,
             @RequestParam(name = "tags")@Valid String tags,
             @RequestParam(name = "aboutGame",required = false) @Valid String aboutGame,
-            @RequestParam(name = "releaseDate",required = false)@Valid String releaseDate,
+            @RequestParam(name = "releaseDate",required = false)@Valid LocalDate releaseDate,
             @RequestParam(name = "gameQuantity",required = false) @Valid int gameQuantity,
             @RequestParam(name = "requirements",required = false) @Valid String requirements,
             @RequestParam(name = "file") MultipartFile imagePath
