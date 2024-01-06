@@ -23,5 +23,4 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-
 }
