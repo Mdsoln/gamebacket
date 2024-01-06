@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "game")
 @NoArgsConstructor
@@ -46,7 +48,7 @@ public class Games {
    private String requirements;
 
    @Column(name = "released",nullable = false)
-   private String releaseDate;
+   private LocalDate releaseDate;
 
    @Column(name = "quantity",nullable = false)
    private int gameQuantity;
