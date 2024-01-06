@@ -18,9 +18,18 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
+    @Column(name = "order_number",nullable = false)
+    private int orderNo;
+
     private String address;
+
+    @Column(name = "quantity",nullable = false)
+    private int quantityOrdered;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id",referencedColumnName = "id")
+    private Customer customer;
 }
