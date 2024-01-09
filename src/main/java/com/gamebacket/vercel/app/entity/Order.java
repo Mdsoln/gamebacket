@@ -1,11 +1,13 @@
 package com.gamebacket.vercel.app.entity;
 
-import com.gamebacket.vercel.app.constants.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -18,18 +20,23 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id",referencedColumnName = "id")
+    private Customer customer;
+
+    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private OrderStatus orderStatus;
+
     @Column(name = "order_number",nullable = false)
     private int orderNo;
 
     private String address;
 
-    @Column(name = "quantity",nullable = false)
-    private int quantityOrdered;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OrderItem> orderItems;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    private LocalDate date_created;
 
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id",referencedColumnName = "id")
-    private Customer customer;
+    private LocalDate date_updated;
+
 }
