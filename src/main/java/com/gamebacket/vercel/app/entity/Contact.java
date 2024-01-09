@@ -19,8 +19,11 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contactId;
 
-    @Column(name = "mobile",nullable = false)
+    @Column(name = "phone_one",nullable = false)
     private String phone_numbers;
+
+    @Column(name = "phone_two")
+    private String alternativeNo;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id",referencedColumnName = "id")

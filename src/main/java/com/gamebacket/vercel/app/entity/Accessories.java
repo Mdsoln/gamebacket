@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "accessory")
 @NoArgsConstructor
@@ -26,4 +28,7 @@ public class Accessories {
     private String description;
     private int quantity;
     private String image;
+
+    @OneToMany(mappedBy = "accessory",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<OrderItem> orderItem;
 }
