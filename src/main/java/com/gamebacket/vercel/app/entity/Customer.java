@@ -32,9 +32,6 @@ public class Customer {
     @Enumerated(EnumType.STRING)
     private UserRole roles;
 
-    @Column(name = "number_of_orders",nullable = false)
-    private int order;
-
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer",fetch = FetchType.EAGER)
     private List<Contact> contact;
 
