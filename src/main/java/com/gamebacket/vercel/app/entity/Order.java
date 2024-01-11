@@ -28,7 +28,7 @@ public class Order {
     private OrderStatus orderStatus;
 
     @Column(name = "order_number",nullable = false)
-    private int orderNo;
+    private String orderNo;
 
     private String address;
 
