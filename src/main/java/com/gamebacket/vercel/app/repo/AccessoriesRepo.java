@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccessoriesRepo extends JpaRepository<Accessories,Long> {
 
+    Accessories findByProductName(String accessoryName);
 }

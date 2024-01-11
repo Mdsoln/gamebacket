@@ -13,4 +13,6 @@ public interface GameRepo extends JpaRepository<Games,Long> {
 
     @Query("SELECT DISTINCT g.gameTitle FROM Games g")
     List<String> findAllGamesTitle();
+
+    Games findByGameTitleIgnoreCase(String gameName);
 }
