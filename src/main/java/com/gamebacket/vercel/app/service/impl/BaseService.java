@@ -10,7 +10,7 @@ import com.gamebacket.vercel.app.repo.UserRepo;
 import com.gamebacket.vercel.app.service.inter.BaseInterface;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -20,7 +20,7 @@ import java.util.Collections;
 public class BaseService implements BaseInterface {
     private final UserRepo userRepo;
     private final ContactRepo contactRepo;
-    private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public void createNewAccount(User user) {
@@ -41,7 +41,7 @@ public class BaseService implements BaseInterface {
         Customer customer = new Customer();
         customer.setFull_name(user.getFirst_name()+" "+user.getLast_name());
         customer.setUserEmail(user.getEmail());
-        customer.setPasswords(passwordEncoder.encode(user.getPassword()));
+        customer.setPasswords(user.getPassword());
         if (user.getEmail().endsWith("@gamebacket.com") || user.getFirst_name().contains("Admin")){
          customer.setRoles(UserRole.ADMIN);
         }
