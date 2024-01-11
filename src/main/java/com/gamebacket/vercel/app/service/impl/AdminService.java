@@ -42,6 +42,7 @@ public class AdminService implements AdminInterface {
                     .gameQuantity(gameQuantity)
                     .website(website)
                     .tags(tags)
+                    .gameAge(gameAge)
                     .genre(genre)
                     .about(aboutGame)
                     .releaseDate(releaseDate)
@@ -77,7 +78,7 @@ public class AdminService implements AdminInterface {
     }
 
     private String storeImagePathToDatabase(MultipartFile image) throws IOException {
-        String uploadDirectory = "dir";
+        String uploadDirectory = "C:/Users/rojo/Documents/SolnCodes/gamebacket/images";
         String imageName = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
 
 
