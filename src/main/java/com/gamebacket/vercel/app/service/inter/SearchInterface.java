@@ -9,4 +9,6 @@ public interface SearchInterface {
 
     List<String> findAllGamesTitle();
 
+    List<Object[]> findAllCustomers();
+
 }
