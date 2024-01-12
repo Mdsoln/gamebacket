@@ -1,5 +1,6 @@
 package com.gamebacket.vercel.app.controller;
 
+
 import com.gamebacket.vercel.app.entity.Games;
 import com.gamebacket.vercel.app.service.impl.SearchService;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,10 @@ public class SearchController {
         return ResponseEntity.ok(gameOptions);
     }
 
+    @GetMapping("/users")
+    public ResponseEntity<List<Object[]>> getRegisteredUsers(){
+        List<Object[]> customers = searchService.findAllCustomers();
+        return ResponseEntity.ok(customers);
+    }
 
 }
