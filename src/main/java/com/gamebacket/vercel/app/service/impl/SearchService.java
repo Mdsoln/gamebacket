@@ -1,13 +1,15 @@
 package com.gamebacket.vercel.app.service.impl;
 
-import com.gamebacket.vercel.app.entity.Customer;
 import com.gamebacket.vercel.app.entity.Games;
+import com.gamebacket.vercel.app.exc.SearchExceptions;
 import com.gamebacket.vercel.app.repo.AccessoriesRepo;
 import com.gamebacket.vercel.app.repo.GameRepo;
 import com.gamebacket.vercel.app.repo.UserRepo;
 import com.gamebacket.vercel.app.service.inter.SearchInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class SearchService implements SearchInterface {
         try {
             return gameRepo.findByGameTitleContainingIgnoreCase(queryGames);
         }catch (DataAccessException exception){
-            throw new RuntimeException("An error occurred while executing the query.",exception);
+            throw new SearchExceptions("Failed to fetch");
         }
     }
 
@@ -33,16 +35,36 @@ public class SearchService implements SearchInterface {
         try {
             return gameRepo.findAllGamesTitle();
         }catch (DataAccessException exception){
-            throw new RuntimeException("An error occurred while executing the query.",exception);
+            throw new SearchExceptions("Failed to fetch");
         }
     }
 
     @Override
-    public List<Object[]> findAllCustomers() {
+    public Page<Object[]> findAllCustomers(Pageable pageable) {
         try {
-            return userRepo.findAllCustomers();
+            return userRepo.findAllCustomers(pageable);
         }catch (DataAccessException e){
-            throw new RuntimeException("Oops!! No users by now");
+            throw new SearchExceptions("Failed to fetch");
         }
     }
+
+    @Override
+    public Page<Object[]> findAllGamesWithOrders(Pageable pageable) {
+        try {
+            return gameRepo.findAllGamesWithOrders(pageable);
+        }catch (DataAccessException exception){
+            throw new SearchExceptions("Failed to fetch");
+        }
+    }
+
+    @Override
+    public Page<Object[]> findAllAccessoriesWithOrders(Pageable pageable) {
+        try {
+            return accessoriesRepo.findAllAccessoriesWithOrders(pageable);
+        }catch (DataAccessException exception){
+            throw new SearchExceptions("Failed to fetch");
+        }
+    }
+
+
 }

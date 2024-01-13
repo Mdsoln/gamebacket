@@ -1,9 +1,17 @@
 package com.gamebacket.vercel.app.controller;
 
 
+import com.gamebacket.vercel.app.constants.PageResponse;
 import com.gamebacket.vercel.app.entity.Games;
+import com.gamebacket.vercel.app.exc.SearchExceptions;
 import com.gamebacket.vercel.app.service.impl.SearchService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,10 +44,85 @@ public class SearchController {
         return ResponseEntity.ok(gameOptions);
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<Object[]>> getRegisteredUsers(){
-        List<Object[]> customers = searchService.findAllCustomers();
-        return ResponseEntity.ok(customers);
+    @GetMapping("/users-with-orders")
+    public ResponseEntity<PageResponse<Object[]>> getRegisteredUsers(
+            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "6") int pageSize
+    ){
+        try {
+            if (pageNumber < 0 || pageSize <= 0) {
+                throw new IllegalArgumentException("Invalid pageNumber or pageSize values");
+            }
+
+            Pageable pageable = PageRequest.of(pageNumber,pageSize, Sort.by("full_name"));
+            Page<Object[]> customers = searchService.findAllCustomers(pageable);
+
+            PageResponse<Object[]> response = new PageResponse<>(
+                    customers.getContent(),
+                    customers.getNumber(),
+                    customers.getTotalPages(),
+                    customers.getTotalElements()
+            );
+
+            return ResponseEntity.ok(response);
+
+        }catch (DataAccessException exception){
+            throw new SearchExceptions("Unexpected query parameter");
+        }
     }
 
+
+    @GetMapping("/games-with-orders")
+    public ResponseEntity<PageResponse<Object[]>> gamesWithTotalOrders(
+            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "6") int pageSize
+    ){
+        try {
+            if (pageNumber < 0 || pageSize <= 0) {
+                throw new IllegalArgumentException("Invalid pageNumber or pageSize values");
+            }
+
+            Pageable pageable = PageRequest.of(pageNumber,pageSize,Sort.by("gameTitle"));
+            Page<Object[]> gamesWithOrders = searchService.findAllGamesWithOrders(pageable);
+
+            PageResponse<Object[]> gameResponse = new PageResponse<>(
+                    gamesWithOrders.getContent(),
+                    gamesWithOrders.getNumber(),
+                    gamesWithOrders.getTotalPages(),
+                    gamesWithOrders.getTotalElements()
+            );
+
+            return ResponseEntity.ok(gameResponse);
+
+        }catch (DataAccessException e){
+            throw new SearchExceptions("Unexpected query parameter");
+        }
+    }
+
+    @GetMapping("/accessories-with-orders")
+    public ResponseEntity<PageResponse<Object[]>> accessoriesWithOrders(
+            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "6") int pageSize
+    ){
+        try {
+            if (pageNumber < 0 || pageSize <= 0) {
+                throw new IllegalArgumentException("Invalid pageNumber or pageSize values");
+            }
+
+            Pageable pageable = PageRequest.of(pageNumber,pageSize);
+            Page<Object[]> accessoriesWithOrders = searchService.findAllAccessoriesWithOrders(pageable);
+
+            PageResponse<Object[]> response = new PageResponse<>(
+                    accessoriesWithOrders.getContent(),
+                    accessoriesWithOrders.getNumber(),
+                    accessoriesWithOrders.getTotalPages(),
+                    accessoriesWithOrders.getTotalElements()
+            );
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
+        }catch (DataAccessException exception){
+            throw new SearchExceptions("Unexpected query parameter");
+        }
+    }
 }
