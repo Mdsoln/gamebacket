@@ -14,7 +14,7 @@ public interface UserRepo extends JpaRepository<Customer,Long> {
     Customer findByUserEmail(String email);
 
 
-    @Query("SELECT c.full_name, c.userEmail, COUNT(o) " +
+    @Query("SELECT c.full_name, c.userEmail, c.date_created, COUNT(o) " +
             "FROM Customer c " +
             "JOIN c.orders o " +
             "GROUP BY c.full_name, c.userEmail "
