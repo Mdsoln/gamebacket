@@ -125,4 +125,29 @@ public class SearchController {
             throw new SearchExceptions("Unexpected query parameter");
         }
     }
+
+    @GetMapping("/orders-with-products")
+    public ResponseEntity<PageResponse<Object[]>> ordersWithOrderedProducts(
+          @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+          @RequestParam(name = "pageSize", defaultValue = "6") int pageSize
+    ){
+        try {
+            if (pageNumber < 0 || pageSize <= 0) {
+                throw new IllegalArgumentException("Invalid pageNumber or pageSize values");
+            }
+
+            Pageable pageable = PageRequest.of(pageNumber,pageSize);
+            Page<Object[]> orderDetails = searchService.findAllOrdersWithDetails(pageable);
+
+            PageResponse<Object[]> response = new PageResponse<>(
+                    orderDetails.getContent(),
+                    orderDetails.getNumber(),
+                    orderDetails.getTotalPages(),
+                    orderDetails.getTotalElements()
+            );
+            return ResponseEntity.ok(response);
+        }catch (DataAccessException exception){
+            throw new SearchExceptions("Failed to fetch");
+        }
+    }
 }

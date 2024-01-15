@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 
 public interface UserInterface {
-    void saveOrders(String customerEmail, String street, String region,String productName,int productQuantity, LocalDate order_date);
+    void saveOrders(String customerEmail, String street, String region,String productName,int productQuantity);
 
     void cancelOrder(String cancelOrder);
 

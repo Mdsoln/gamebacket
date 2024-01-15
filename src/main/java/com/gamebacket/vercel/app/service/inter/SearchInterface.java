@@ -17,4 +17,6 @@ public interface SearchInterface {
 
     Page<Object[]> findAllAccessoriesWithOrders(Pageable pageable);
 
+    Page<Object[]> findAllOrdersWithDetails(Pageable pageable);
+
 }

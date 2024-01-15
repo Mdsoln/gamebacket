@@ -23,17 +23,16 @@ public class UserController {
             @RequestParam(name = "street") String street,
             @RequestParam(name = "region") String region,
             @RequestParam(name = "productName") String productName,
-            @RequestParam(name = "productQuantity") int productQuantity,
-            @RequestParam(name = "order_date") LocalDate order_date
+            @RequestParam(name = "productQuantity") int productQuantity
             ){
-        userService.saveOrders(customerEmail,street,region,productName,productQuantity,order_date);
+        userService.saveOrders(customerEmail,street,region,productName,productQuantity);
         return ResponseEntity.ok("You have successfully placed your order");
     }
 
     @CrossOrigin()
-    @PostMapping("/cancel-order")
-    public ResponseEntity<String> cancelOrder(@RequestParam(name = "cancel",required = false) String cancelOrder){
-        userService.cancelOrder(cancelOrder);
+    @PostMapping("/cancel-order/{orderNo}")
+    public ResponseEntity<String> cancelOrder(@PathVariable("orderNo") String orderNo){
+        userService.cancelOrder(orderNo);
         return ResponseEntity.ok("Oops! You have cancel your order, you may still have time to make it happen");
     }
 }

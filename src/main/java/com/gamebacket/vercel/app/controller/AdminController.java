@@ -52,4 +52,11 @@ public class AdminController {
         adminService.publishAccessories(productName,category,description,price,quantity,imagePath);
         return ResponseEntity.ok("published successfully");
     }
+
+    @PostMapping("/complete-order/{orderNo}")
+    public ResponseEntity<String> confirmOrders(@PathVariable("orderNo") String orderNo
+    ){
+        adminService.confirmCompleteOrders(orderNo);
+        return ResponseEntity.ok("completed");
+    }
 }

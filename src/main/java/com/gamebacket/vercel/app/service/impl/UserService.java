@@ -21,20 +21,18 @@ public class UserService implements UserInterface {
     private final AccessoriesRepo accessoriesRepo;
 
     @Override
-    public void saveOrders(String customerEmail, String street, String region,String productName,int productQuantity, LocalDate order_date) {
+    public void saveOrders(String customerEmail, String street, String region,String productName,int productQuantity) {
         try {
             Customer customer = userRepo.findByUserEmail(customerEmail);
             if (customer != null){
                 Order order = new Order();
                 order.setOrderNo(generateRandomOrderNumber());
                 order.setAddress(street+" "+region);
-                order.setDate_created(order_date);
                 order.setCustomer(customer);
                 orderRepo.save(order);
 
                 OrderStatus status = new OrderStatus();
                 status.setOrder_status(Status.STATUS_ONGOING);
-                status.setDate_created(order_date);
                 status.setOrder(order);
                 orderStatusRepo.save(status);
 
@@ -57,12 +55,19 @@ public class UserService implements UserInterface {
                 orderItem.setOrder(order);
                 orderItem.setGame(game);
                 orderItemRepo.save(orderItem);
+
+                game.setGameQuantity(game.getGameQuantity() - 1);
+                gameRepo.save(game);
+
             } else if (accessories != null) {
                 OrderItem orderItem = new OrderItem();
                 orderItem.setQuantity(productQuantity);
                 orderItem.setOrder(order);
                 orderItem.setAccessory(accessories);
                 orderItemRepo.save(orderItem);
+
+                accessories.setQuantity(accessories.getQuantity() -1);
+                accessoriesRepo.save(accessories);
             }
         }catch (Exception exception){
             throw new RuntimeException("Error processing order"+exception);
@@ -82,8 +87,19 @@ public class UserService implements UserInterface {
     }
 
     @Override
-    public void cancelOrder(String cancelOrder) {
+    public void cancelOrder(String orderNo) {
+          Order order = orderRepo.findByOrderNo(orderNo);
+          if (order != null){
+                 OrderStatus canceledStatus = order.getOrderStatus();
+                 if (canceledStatus != null) {
+                     canceledStatus.setOrder_status(Status.STATUS_CANCELED);
+                     canceledStatus.setDate_updated(LocalDate.now());
+                     orderStatusRepo.save(canceledStatus);
 
+                     order.setDate_updated(LocalDate.now());
+                     orderRepo.save(order);
+                 }
+          }
     }
 
 }

@@ -1,10 +1,15 @@
 package com.gamebacket.vercel.app.service.impl;
 
+import com.gamebacket.vercel.app.constants.Status;
 import com.gamebacket.vercel.app.entity.Accessories;
 import com.gamebacket.vercel.app.entity.Games;
+import com.gamebacket.vercel.app.entity.Order;
+import com.gamebacket.vercel.app.entity.OrderStatus;
 import com.gamebacket.vercel.app.exc.EmptyOrNullValueStorageException;
 import com.gamebacket.vercel.app.repo.AccessoriesRepo;
 import com.gamebacket.vercel.app.repo.GameRepo;
+import com.gamebacket.vercel.app.repo.OrderRepo;
+import com.gamebacket.vercel.app.repo.OrderStatusRepo;
 import com.gamebacket.vercel.app.service.inter.AdminInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +29,8 @@ import java.util.Objects;
 public class AdminService implements AdminInterface {
     private final GameRepo gameRepo;
     private final AccessoriesRepo accessoriesRepo;
+    private final OrderRepo orderRepo;
+    private final OrderStatusRepo orderStatusRepo;
 
     @Override
     public void publishNewGame(String gameTitle, String gamePlatforms, float actualPrice,
@@ -75,6 +82,20 @@ public class AdminService implements AdminInterface {
           } catch (IOException e) {
               throw new RuntimeException(e);
           }
+    }
+
+    @Override
+    public void confirmCompleteOrders(String orderNo) {
+        Order order = orderRepo.findByOrderNo(orderNo);
+        if (order != null){
+            OrderStatus completeStatus = order.getOrderStatus();
+            completeStatus.setOrder_status(Status.STATUS_COMPLETED);
+            completeStatus.setDate_updated(LocalDate.now());
+            orderStatusRepo.save(completeStatus);
+
+            order.setDate_updated(LocalDate.now());
+            orderRepo.save(order);
+        }
     }
 
     private String storeImagePathToDatabase(MultipartFile image) throws IOException {

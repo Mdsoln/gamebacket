@@ -4,6 +4,7 @@ import com.gamebacket.vercel.app.entity.Games;
 import com.gamebacket.vercel.app.exc.SearchExceptions;
 import com.gamebacket.vercel.app.repo.AccessoriesRepo;
 import com.gamebacket.vercel.app.repo.GameRepo;
+import com.gamebacket.vercel.app.repo.OrderRepo;
 import com.gamebacket.vercel.app.repo.UserRepo;
 import com.gamebacket.vercel.app.service.inter.SearchInterface;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class SearchService implements SearchInterface {
     private final GameRepo gameRepo;
     private final AccessoriesRepo accessoriesRepo;
     private final UserRepo userRepo;
+    private final OrderRepo orderRepo;
 
     @Override
     public List<Games> findByGameTitleContainingIgnoreCase(String queryGames) {
@@ -66,5 +68,13 @@ public class SearchService implements SearchInterface {
         }
     }
 
+    @Override
+    public Page<Object[]> findAllOrdersWithDetails(Pageable pageable) {
+        try {
+            return orderRepo.findAllOrdersWithDetails(pageable);
+        }catch (DataAccessException exception){
+            throw new SearchExceptions("Failed to fetch");
+        }
+    }
 
 }
