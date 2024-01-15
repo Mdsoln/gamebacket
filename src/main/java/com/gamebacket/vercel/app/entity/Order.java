@@ -39,4 +39,14 @@ public class Order {
 
     private LocalDate date_updated;
 
+    @PrePersist
+    public void onCreate(){
+        date_created = LocalDate.now();
+    }
+
+    @PreUpdate
+    public void onUpdate(){
+        date_updated = LocalDate.now();
+    }
+
 }

@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -32,9 +33,17 @@ public class Customer {
     @Enumerated(EnumType.STRING)
     private UserRole roles;
 
+    private LocalDate date_created;
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer",fetch = FetchType.EAGER)
     private List<Contact> contact;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer",fetch = FetchType.EAGER)
     private List<Order> orders;
+
+    @PrePersist
+    public void onCreate(){
+        date_created = LocalDate.now();
+    }
+
 }
