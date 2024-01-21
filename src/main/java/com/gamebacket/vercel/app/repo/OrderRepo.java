@@ -20,5 +20,11 @@ public interface OrderRepo extends JpaRepository<Order,Long> {
             "JOIN o.orderStatus os")
     Page<Object[]> findAllOrdersWithDetails(Pageable pageable);
 
+    @Query("SELECT orderId, COUNT(orderId) " +
+            "FROM Order o "+
+            "GROUP BY orderId"
+    )
+    Integer findTotalOrders();
 
+    // TODO: 20/01/2024 querying orders based on status e.g completed, canceled or ongoing orders
 }
