@@ -10,5 +10,4 @@ public interface AdminInterface {
     void publishAccessories(String productName, String category, String description, float price, int quantity, MultipartFile imagePath);
 
     void confirmCompleteOrders(String orderNo);
-
 }

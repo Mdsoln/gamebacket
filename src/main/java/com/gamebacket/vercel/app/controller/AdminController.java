@@ -1,5 +1,6 @@
 package com.gamebacket.vercel.app.controller;
 
+import com.gamebacket.vercel.app.entity.Order;
 import com.gamebacket.vercel.app.service.impl.AdminService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -77,4 +77,32 @@ public class SearchService implements SearchInterface {
         }
     }
 
+    @Override
+    public int countAllOrders() {
+        try {
+            return orderRepo.findTotalOrders();
+        }catch (DataAccessException exception){
+            throw new SearchExceptions("Oops! something went wrong");
+        }
+    }
+
+    @Override
+    public Page<Object[]> findCompleteOrders(Pageable pageable) {
+        // TODO: 20/01/2024 return complete orders to the admin page
+        return null;
+    }
+
+    @Override
+    public Page<Object[]> findCanceledOrders(Pageable pageable) {
+        // TODO: 20/01/2024 return canceled orders to the admin page
+        return null;
+    }
+
+    @Override
+    public Page<Object[]> findOngoingOrders(Pageable pageable) {
+        // TODO: 20/01/2024 return pending prders to the admin page
+        return null;
+    }
+
+
 }

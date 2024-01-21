@@ -2,6 +2,7 @@ package com.gamebacket.vercel.app.controller;
 
 
 import com.gamebacket.vercel.app.constants.PageResponse;
+import com.gamebacket.vercel.app.constants.Status;
 import com.gamebacket.vercel.app.entity.Games;
 import com.gamebacket.vercel.app.exc.SearchExceptions;
 import com.gamebacket.vercel.app.service.impl.SearchService;
@@ -150,4 +151,62 @@ public class SearchController {
             throw new SearchExceptions("Failed to fetch");
         }
     }
+
+    @GetMapping("/count-orders")
+    public ResponseEntity<Integer> countOrders(){
+        int orders = searchService.countAllOrders();
+        return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/status-of-orders")
+    public ResponseEntity<PageResponse<Object[]>> findByOrderByStatus(
+            @RequestParam String actionStatus,
+            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "6") int pageSize
+    ){
+        try {
+
+            if (pageNumber < 0 || pageSize <= 0) {
+                throw new IllegalArgumentException("Invalid pageNumber or pageSize values");
+            }
+
+            Pageable pageable = PageRequest.of(pageNumber,pageSize);
+
+            if (Status.ACTION_COMPLETE.equalsIgnoreCase(actionStatus)){
+                Page<Object[]> completedOrders = searchService.findCompleteOrders(pageable);
+
+                PageResponse<Object[]> completeOrdersResponse = new PageResponse<>(
+                        completedOrders.getContent(),
+                        completedOrders.getNumber(),
+                        completedOrders.getTotalPages(),
+                        completedOrders.getTotalElements()
+                );
+                return ResponseEntity.ok(completeOrdersResponse);
+            } else if (Status.ACTION_CANCEL.equalsIgnoreCase(actionStatus)) {
+                Page<Object[]> canceledOrders = searchService.findCanceledOrders(pageable);
+
+                PageResponse<Object[]> canceledOrdersResponse = new PageResponse<>(
+                        canceledOrders.getContent(),
+                        canceledOrders.getNumber(),
+                        canceledOrders.getTotalPages(),
+                        canceledOrders.getTotalElements()
+                );
+                return ResponseEntity.ok(canceledOrdersResponse);
+            } else if (Status.ACTION_PENDING.equalsIgnoreCase(actionStatus)) {
+                Page<Object[]> pendingOrders = searchService.findOngoingOrders(pageable);
+
+                PageResponse<Object[]> pendingOrdersResponse = new PageResponse<>(
+                        pendingOrders.getContent(),
+                        pendingOrders.getNumber(),
+                        pendingOrders.getTotalPages(),
+                        pendingOrders.getTotalElements()
+                );
+                return ResponseEntity.ok(pendingOrdersResponse);
+            }
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }catch (DataAccessException exception){
+            throw new SearchExceptions("Failed to retrieve");
+        }
+    }
 }
+

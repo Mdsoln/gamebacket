@@ -19,4 +19,11 @@ public interface SearchInterface {
 
     Page<Object[]> findAllOrdersWithDetails(Pageable pageable);
 
+    int countAllOrders();
+
+    Page<Object[]> findCompleteOrders(Pageable pageable);
+
+    Page<Object[]> findCanceledOrders(Pageable pageable);
+
+    Page<Object[]> findOngoingOrders(Pageable pageable);
 }
