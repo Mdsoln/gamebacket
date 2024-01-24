@@ -16,7 +16,15 @@ import java.time.LocalDate;
 @Builder
 public class OrderStatus {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "orderStatus_sequence",
+            sequenceName = "orderStatus_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "orderStatus_sequence"
+    )
     private Long status_id;
 
     @OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
