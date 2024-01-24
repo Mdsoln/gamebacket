@@ -14,7 +14,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OrderItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "orderItem_sequence",
+            sequenceName = "orderItem_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "orderItem_sequence"
+    )
     private Long orderItemId;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

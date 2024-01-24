@@ -16,7 +16,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Contact {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "contact_sequence",
+            sequenceName = "contact_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "contact_sequence"
+    )
     private Long contactId;
 
     @Column(name = "phone_one",nullable = false)

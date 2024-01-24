@@ -11,14 +11,22 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "customer")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "customer_sequence",
+            sequenceName = "customer_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "customer_sequence"
+    )
     @Column(name = "id",nullable = false)
     private Long userId;
 

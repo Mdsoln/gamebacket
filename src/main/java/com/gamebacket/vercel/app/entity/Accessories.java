@@ -16,7 +16,15 @@ import java.util.List;
 @Builder
 public class Accessories {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "accessories_sequence",
+            sequenceName = "accessories_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "accessories_sequence"
+    )
     @Column(name = "id",nullable = false)
     private Long accessoryId;
 
