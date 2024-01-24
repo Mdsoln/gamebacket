@@ -17,7 +17,15 @@ import java.util.List;
 @Builder
 public class Games {
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @SequenceGenerator(
+           name = "games_sequence",
+           sequenceName = "games_sequence",
+           allocationSize = 1
+   )
+   @GeneratedValue(
+           strategy = GenerationType.SEQUENCE,
+           generator = "games_sequence"
+   )
    @Column(name = "id",nullable = false)
    private Long gameId;
 
