@@ -12,7 +12,7 @@
 	<artifactId>gamebacket</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gamebacket</name>
-	<description>Game Backet Tool</description>
+	<description>GameBacket Tool</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
@@ -44,8 +44,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -78,6 +78,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>gamebacket</finalName>
 	</build>
 	<repositories>
 		<repository>
