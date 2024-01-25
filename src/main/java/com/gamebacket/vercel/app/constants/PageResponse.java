@@ -15,5 +15,6 @@ public class PageResponse<T> {
         this.content = content;
         this.totalPages = totalPages;
         this.totalElements = totalElements;
+
     }
 }
