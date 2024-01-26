@@ -2,6 +2,7 @@ package com.gamebacket.vercel.app.service.impl;
 
 import com.gamebacket.vercel.app.constants.Status;
 import com.gamebacket.vercel.app.entity.*;
+import com.gamebacket.vercel.app.exc.EmptyOrNullValueStorageException;
 import com.gamebacket.vercel.app.repo.*;
 import com.gamebacket.vercel.app.service.inter.UserInterface;
 import lombok.RequiredArgsConstructor;
@@ -21,29 +22,32 @@ public class UserService implements UserInterface {
     private final AccessoriesRepo accessoriesRepo;
 
     @Override
-    public void saveOrders(String customerEmail, String street, String region,String productName,int productQuantity) {
+    public void saveOrders(String customerEmail, String street, String region, String productName, int productQuantity) {
         try {
             Customer customer = userRepo.findByUserEmail(customerEmail);
-            if (customer != null){
-                Order order = new Order();
-                order.setOrderNo(generateRandomOrderNumber());
-                order.setAddress(street+" "+region);
-                order.setCustomer(customer);
-                orderRepo.save(order);
-
-                OrderStatus status = new OrderStatus();
-                status.setOrder_status(Status.STATUS_ONGOING);
-                status.setOrder(order);
-                orderStatusRepo.save(status);
-
-               if (productName != null){
-                   saveOrderItem(order,productName,productQuantity);
-               }
+            if (customer == null) {
+                throw new EmptyOrNullValueStorageException("Please you need to have an account");
             }
-        }catch (Exception e){
-            throw new RuntimeException("Error while processing an order"+e);
+
+            Order order = new Order();
+            order.setOrderNo(generateRandomOrderNumber());
+            order.setAddress(street + " " + region);
+            order.setCustomer(customer);
+            orderRepo.save(order);
+
+            OrderStatus status = new OrderStatus();
+            status.setOrder_status(Status.STATUS_ONGOING);
+            status.setOrder(order);
+            orderStatusRepo.save(status);
+
+            if (productName != null) {
+                saveOrderItem(order, productName, productQuantity);
+            }
+        } catch (Exception ignored) {
+
         }
     }
+
 
     private void saveOrderItem(Order order, String productName, int productQuantity) {
         try {
