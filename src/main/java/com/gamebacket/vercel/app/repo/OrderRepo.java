@@ -26,5 +26,33 @@ public interface OrderRepo extends JpaRepository<Order,Long> {
     )
     Integer findTotalOrders();
 
-    // TODO: 20/01/2024 querying orders based on status e.g completed, canceled or ongoing orders
+    @Query("SELECT o.orderNo, o.address, o.date_created, os.order_status, oi.quantity, " +
+            "(CASE WHEN oi.game IS NOT NULL THEN oi.game.gameTitle ELSE oi.accessory.productName END) AS productName, " +
+            "(CASE WHEN oi.game IS NOT NULL THEN oi.game.actualPrice ELSE oi.accessory.price END) AS productPrice " +
+            "FROM Order o " +
+            "JOIN o.orderItems oi " +
+            "JOIN o.orderStatus os " +
+            "WHERE os.order_status LIKE 'completed' "
+    )
+    Page<Object[]> findOrderWithCompletedStatus(Pageable pageable);
+
+    @Query("SELECT o.orderNo, o.address, o.date_created, os.order_status, oi.quantity, " +
+            "(CASE WHEN oi.game IS NOT NULL THEN oi.game.gameTitle ELSE oi.accessory.productName END) AS productName, " +
+            "(CASE WHEN oi.game IS NOT NULL THEN oi.game.actualPrice ELSE oi.accessory.price END) AS productPrice " +
+            "FROM Order o " +
+            "JOIN o.orderItems oi " +
+            "JOIN o.orderStatus os " +
+            "WHERE os.order_status LIKE 'ongoing' "
+    )
+    Page<Object[]> findOrderWithPendingStatus(Pageable pageable);
+
+    @Query("SELECT o.orderNo, o.address, o.date_created, os.order_status, oi.quantity, " +
+            "(CASE WHEN oi.game IS NOT NULL THEN oi.game.gameTitle ELSE oi.accessory.productName END) AS productName, " +
+            "(CASE WHEN oi.game IS NOT NULL THEN oi.game.actualPrice ELSE oi.accessory.price END) AS productPrice " +
+            "FROM Order o " +
+            "JOIN o.orderItems oi " +
+            "JOIN o.orderStatus os " +
+            "WHERE os.order_status LIKE 'canceled' "
+    )
+    Page<Object[]> findOrderWithCanceledStatus(Pageable pageable);
 }

@@ -88,21 +88,28 @@ public class SearchService implements SearchInterface {
 
     @Override
     public Page<Object[]> findCompleteOrders(Pageable pageable) {
-        // TODO: 20/01/2024 return complete orders to the admin page
-        return null;
+        try {
+            return orderRepo.findOrderWithCompletedStatus(pageable);
+        }catch (DataAccessException d){
+            throw new SearchExceptions("Error occurred!");
+        }
     }
 
     @Override
     public Page<Object[]> findCanceledOrders(Pageable pageable) {
-        // TODO: 20/01/2024 return canceled orders to the admin page
-        return null;
+       try {
+           return orderRepo.findOrderWithCanceledStatus(pageable);
+       }catch (DataAccessException d){
+           throw new SearchExceptions("Error occurred!");
+       }
     }
 
     @Override
     public Page<Object[]> findOngoingOrders(Pageable pageable) {
-        // TODO: 20/01/2024 return pending prders to the admin page
-        return null;
+       try {
+           return orderRepo.findOrderWithPendingStatus(pageable);
+       }catch (DataAccessException d){
+           throw new SearchExceptions("Error occurred");
+       }
     }
-
-
 }
