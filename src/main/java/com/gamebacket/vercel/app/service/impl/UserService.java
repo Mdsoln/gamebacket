@@ -20,6 +20,7 @@ public class UserService implements UserInterface {
     private final OrderItemRepo orderItemRepo;
     private final GameRepo gameRepo;
     private final AccessoriesRepo accessoriesRepo;
+    private final EmailService emailService;
 
     @Override
     public void saveOrders(String customerEmail, String street, String region, String productName, int productQuantity) {
@@ -43,6 +44,7 @@ public class UserService implements UserInterface {
             if (productName != null) {
                 saveOrderItem(order, productName, productQuantity);
             }
+            emailService.sendMailToSuppliers(customerEmail,productName);
         } catch (Exception ignored) {
 
         }
