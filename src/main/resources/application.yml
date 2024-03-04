@@ -21,3 +21,5 @@ server:
 logging:
   level:
     org.springframework.security: DEBUG
+clickSend-username: gamebackets@gmail.com
+clickSend-apiKey: 95E02DE1-AD4A-B3A6-3F9E-19F34D86F5DC
