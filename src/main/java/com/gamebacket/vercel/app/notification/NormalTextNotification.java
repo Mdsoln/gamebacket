@@ -36,6 +36,7 @@ public class NormalTextNotification {
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (ApiException e) {
             e.printStackTrace();
+
         }
 
         return new ResponseEntity<>("Exception when calling SmsApi#smsSendPost", HttpStatus.BAD_REQUEST);
@@ -49,4 +50,7 @@ public class NormalTextNotification {
 
         return message.toString();
     }
+
+    // TODO: 04/03/2024 need to add the username for github
+
 }
