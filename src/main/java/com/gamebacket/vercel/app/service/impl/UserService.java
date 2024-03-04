@@ -3,6 +3,7 @@ package com.gamebacket.vercel.app.service.impl;
 import com.gamebacket.vercel.app.constants.Status;
 import com.gamebacket.vercel.app.entity.*;
 import com.gamebacket.vercel.app.exc.EmptyOrNullValueStorageException;
+import com.gamebacket.vercel.app.notification.NormalTextNotification;
 import com.gamebacket.vercel.app.repo.*;
 import com.gamebacket.vercel.app.service.inter.UserInterface;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class UserService implements UserInterface {
     private final GameRepo gameRepo;
     private final AccessoriesRepo accessoriesRepo;
     private final EmailService emailService;
+    private final NormalTextNotification textNotification;
 
     @Override
     public void saveOrders(String customerEmail, String street, String region, String productName, int productQuantity) {
@@ -44,7 +46,8 @@ public class UserService implements UserInterface {
             if (productName != null) {
                 saveOrderItem(order, productName, productQuantity);
             }
-            emailService.sendMailToSuppliers(customerEmail,productName);
+            /*emailService.sendMailToSuppliers(customerEmail,productName);*/
+            textNotification.sendTextNotification(customerEmail,productName);
         } catch (Exception ignored) {
 
         }
