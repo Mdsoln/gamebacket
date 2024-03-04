@@ -51,6 +51,6 @@ public class NormalTextNotification {
         return message.toString();
     }
 
-    // TODO: 04/03/2024 need to add the username for github
+
 
 }

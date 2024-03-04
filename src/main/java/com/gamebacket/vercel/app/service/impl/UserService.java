@@ -49,7 +49,7 @@ public class UserService implements UserInterface {
             /*emailService.sendMailToSuppliers(customerEmail,productName);*/
             textNotification.sendTextNotification(customerEmail,productName);
         } catch (Exception ignored) {
-//throw any exception here
+
         }
     }
 
