@@ -23,7 +23,10 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/api/v1/admin/*","/api/v1/search/*","/api/v1/base/*","/api/v1/user/*")
+                                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/api/v1/search/**","/api/v1/base/**","/api/v1/user/**","/payments/**")
+                                .permitAll()
+                                .requestMatchers("/api/v1/base/createAccount","/api/v1/base/authenticate")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
