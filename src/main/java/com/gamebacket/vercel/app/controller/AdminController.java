@@ -10,12 +10,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
+@CrossOrigin()
 @RestController
 @RequestMapping(path = "/api/v1/admin")
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
 
+    @CrossOrigin()
     @PostMapping("/publishGame")
     public ResponseEntity<String> publishGameToServer(
             @RequestParam(name = "gameTitle") @Valid String gameTitle,
@@ -41,6 +43,7 @@ public class AdminController {
     }
 
 
+    @CrossOrigin()
     @PostMapping("/publishAccessory")
     public ResponseEntity<String> publishProduct(
             @RequestParam(name = "productName",required = false) String productName,
@@ -54,6 +57,7 @@ public class AdminController {
         return ResponseEntity.ok("published successfully");
     }
 
+    @CrossOrigin()
     @PostMapping("/complete-order/{orderNo}")
     public ResponseEntity<String> confirmOrders(@PathVariable("orderNo") String orderNo
     ){

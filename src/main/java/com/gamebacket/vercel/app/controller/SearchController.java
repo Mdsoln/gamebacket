@@ -14,13 +14,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin()
 @RestController
 @RequestMapping(path = "/api/v1/search")
 @RequiredArgsConstructor
@@ -30,6 +28,7 @@ public class SearchController {
     /**
      * searching games based on user input and returning all games that contain user input
      */
+    @CrossOrigin()
     @GetMapping("/games")
     public ResponseEntity<List<Games>> searchGameByName(@RequestParam String queryGames){
         List<Games> matchingGames = searchService.findByGameTitleContainingIgnoreCase(queryGames);
@@ -39,12 +38,14 @@ public class SearchController {
     /**
      * Autocomplete search suggestions
      */
+    @CrossOrigin()
     @GetMapping("/game-options")
     public ResponseEntity<List<String>> gameGameOptions(){
         List<String> gameOptions = searchService.findAllGamesTitle();
         return ResponseEntity.ok(gameOptions);
     }
 
+    @CrossOrigin()
     @GetMapping("/users-with-orders")
     public ResponseEntity<PageResponse<Object[]>> getRegisteredUsers(
             @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
@@ -72,7 +73,7 @@ public class SearchController {
         }
     }
 
-
+    @CrossOrigin()
     @GetMapping("/games-with-orders")
     public ResponseEntity<PageResponse<Object[]>> gamesWithTotalOrders(
             @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
@@ -100,6 +101,7 @@ public class SearchController {
         }
     }
 
+    @CrossOrigin()
     @GetMapping("/accessories-with-orders")
     public ResponseEntity<PageResponse<Object[]>> accessoriesWithOrders(
             @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
@@ -127,6 +129,7 @@ public class SearchController {
         }
     }
 
+    @CrossOrigin()
     @GetMapping("/orders-with-products")
     public ResponseEntity<PageResponse<Object[]>> ordersWithOrderedProducts(
           @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
@@ -152,12 +155,14 @@ public class SearchController {
         }
     }
 
+    @CrossOrigin()
     @GetMapping("/count-orders")
     public ResponseEntity<Integer> countOrders(){
         int orders = searchService.countAllOrders();
         return ResponseEntity.ok(orders);
     }
 
+    @CrossOrigin()
     @GetMapping("/status-of-orders")
     public ResponseEntity<PageResponse<Object[]>> findByOrderByStatus(
             @RequestParam String actionStatus,
