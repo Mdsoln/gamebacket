@@ -1,5 +1,6 @@
 package com.gamebacket.vercel.app.service.inter;
 
+import com.gamebacket.vercel.app.dto.TopSellingProductDTO;
 import com.gamebacket.vercel.app.entity.Games;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,4 +27,7 @@ public interface SearchInterface {
     Page<Object[]> findCanceledOrders(Pageable pageable);
 
     Page<Object[]> findOngoingOrders(Pageable pageable);
+
+    List<TopSellingProductDTO> getTopSellingProduct();
+
 }

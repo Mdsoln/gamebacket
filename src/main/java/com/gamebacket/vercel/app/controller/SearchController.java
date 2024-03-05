@@ -3,6 +3,7 @@ package com.gamebacket.vercel.app.controller;
 
 import com.gamebacket.vercel.app.constants.PageResponse;
 import com.gamebacket.vercel.app.constants.Status;
+import com.gamebacket.vercel.app.dto.TopSellingProductDTO;
 import com.gamebacket.vercel.app.entity.Games;
 import com.gamebacket.vercel.app.exc.SearchExceptions;
 import com.gamebacket.vercel.app.service.impl.SearchService;
@@ -212,6 +213,13 @@ public class SearchController {
         }catch (DataAccessException exception){
             throw new SearchExceptions("Failed to retrieve");
         }
+    }
+
+
+    @CrossOrigin()
+    @GetMapping("/top-selling-product")
+    public ResponseEntity<List<TopSellingProductDTO>> getTopSellingProduct(){
+        return ResponseEntity.ok(searchService.getTopSellingProduct());
     }
 }
 

@@ -1,11 +1,9 @@
 package com.gamebacket.vercel.app.service.impl;
 
+import com.gamebacket.vercel.app.dto.TopSellingProductDTO;
 import com.gamebacket.vercel.app.entity.Games;
 import com.gamebacket.vercel.app.exc.SearchExceptions;
-import com.gamebacket.vercel.app.repo.AccessoriesRepo;
-import com.gamebacket.vercel.app.repo.GameRepo;
-import com.gamebacket.vercel.app.repo.OrderRepo;
-import com.gamebacket.vercel.app.repo.UserRepo;
+import com.gamebacket.vercel.app.repo.*;
 import com.gamebacket.vercel.app.service.inter.SearchInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
@@ -22,6 +20,7 @@ public class SearchService implements SearchInterface {
     private final AccessoriesRepo accessoriesRepo;
     private final UserRepo userRepo;
     private final OrderRepo orderRepo;
+    private final OrderItemRepo orderItemRepo;
 
     @Override
     public List<Games> findByGameTitleContainingIgnoreCase(String queryGames) {
@@ -111,5 +110,14 @@ public class SearchService implements SearchInterface {
        }catch (DataAccessException d){
            throw new SearchExceptions("Error occurred");
        }
+    }
+
+    @Override
+    public List<TopSellingProductDTO> getTopSellingProduct() {
+        try {
+            return orderItemRepo.findTopSellingProducts();
+        }catch (DataAccessException d){
+            throw new SearchExceptions("An error has occurred while fetching!!");
+        }
     }
 }
