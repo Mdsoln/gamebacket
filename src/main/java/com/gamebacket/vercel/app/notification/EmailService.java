@@ -1,4 +1,4 @@
-package com.gamebacket.vercel.app.service.impl;
+package com.gamebacket.vercel.app.notification;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
