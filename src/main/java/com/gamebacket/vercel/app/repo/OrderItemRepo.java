@@ -1,5 +1,6 @@
 package com.gamebacket.vercel.app.repo;
 
+import com.gamebacket.vercel.app.dto.SalesReport;
 import com.gamebacket.vercel.app.dto.TopSellingProductDTO;
 import com.gamebacket.vercel.app.entity.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,5 +22,14 @@ public interface OrderItemRepo extends JpaRepository<OrderItem,Long> {
             "ORDER BY orderCount DESC"
     )
     List<TopSellingProductDTO> findTopSellingProducts();
+
+    //total sales per day
+    @Query("SELECT SUM(oi.quantity * (CASE WHEN oi.game IS NOT NULL THEN oi.game.actualPrice ELSE oi.accessory.price END)) AS totalSales, order.date_created AS dateCreated " +
+            "FROM OrderItem oi " +
+            "JOIN oi.order order " +
+            "GROUP BY order.date_created " +
+            "ORDER BY dateCreated ASC")
+    List<SalesReport> findTotalSalesPerDay();
+
 
 }
