@@ -1,6 +1,6 @@
 package com.gamebacket.vercel.app.controller;
 
-import com.gamebacket.vercel.app.entity.Order;
+import com.gamebacket.vercel.app.dto.SalesReport;
 import com.gamebacket.vercel.app.service.impl.AdminService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @CrossOrigin()
 @RestController
@@ -63,5 +64,13 @@ public class AdminController {
     ){
         adminService.confirmCompleteOrders(orderNo);
         return ResponseEntity.ok("completed");
+    }
+
+    @CrossOrigin()
+    @GetMapping("/totalSalesPerDay")
+    public ResponseEntity<List<SalesReport>> findTotalSales(){
+        List<SalesReport> dailySales = adminService.findTodaysSales();
+        return ResponseEntity.ok(dailySales);
+
     }
 }
