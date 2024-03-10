@@ -115,8 +115,7 @@ public class AdminService implements AdminInterface {
 
     @Override
     public List<SalesReport> findWeeklySales() {
-        List<SalesReport> weekReport = orderItemRepo.findTotalSalesPerWeek();
-
+        return orderItemRepo.findTotalSalesPerWeek();
     }
 
 
