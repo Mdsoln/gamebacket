@@ -14,7 +14,7 @@
 	<name>gamebacket</name>
 	<description>GameBacket Tool</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
