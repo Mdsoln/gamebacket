@@ -113,8 +113,14 @@ public class AdminService implements AdminInterface {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<SalesReport> findWeeklySales() {
+        List<SalesReport> weekReport = orderItemRepo.findTotalSalesPerWeek();
 
-     @Scheduled(fixedRate = 1000 * 60 * 60, initialDelay = 1000) // Schedule every hour with a 1-second initial delay
+    }
+
+
+    @Scheduled(fixedRate = 1000 * 60 * 60, initialDelay = 1000) // Schedule every hour with a 1-second initial delay
     public void updateTodaysSales() {
     List<SalesReport> todaysSalesReport = findTodaysSales();
     // Update your UI logic here using todaysSalesReport data

@@ -15,4 +15,5 @@ public interface AdminInterface {
 
     List<SalesReport> findTodaysSales();
 
+    List<SalesReport> findWeeklySales();
 }
