@@ -73,4 +73,11 @@ public class AdminController {
         return ResponseEntity.ok(dailySales);
 
     }
+
+    @CrossOrigin()
+    @GetMapping("/totalSalesPerWeek")
+    public ResponseEntity<List<SalesReport>> findTotalWeekSales(){
+        List<SalesReport> weeklySales = adminService.findWeeklySales();
+        return ResponseEntity.ok(weeklySales);
+    }
 }
