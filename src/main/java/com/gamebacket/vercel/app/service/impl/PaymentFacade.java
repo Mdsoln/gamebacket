@@ -15,10 +15,15 @@ public class PaymentFacade {
 
     public PaymentResponse pay(PaymentRequest request){
         PaymentProviderType providerType = request.getProviderType();
-        return switch (providerType) {
-            case GEPG -> gePGService.pay(request);
-            case TIGO_PESA -> tigoPesaService.pay(request);
-            case AIRTEL_MONEY -> airtelMoneyService.pay(request);
-        };
+        switch (providerType){
+            case GEPG :
+                return gePGService.pay(request);
+            case TIGO_PESA:
+                return tigoPesaService.pay(request);
+            case AIRTEL_MONEY:
+                return airtelMoneyService.pay(request);
+            default:
+                return null;
+        }
     }
 }
