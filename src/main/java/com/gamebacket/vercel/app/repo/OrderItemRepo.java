@@ -31,5 +31,12 @@ public interface OrderItemRepo extends JpaRepository<OrderItem,Long> {
             "ORDER BY dateCreated ASC")
     List<SalesReport> findTotalSalesPerDay();
 
+    //total sales per week
+    @Query("SELECT SUM(oi.quantity * (CASE WHEN oi.game IS NOT NULL THEN oi.game.actualPrice ELSE oi.accessory.price END)) AS totalSales, YEAR(order.date_created) AS year, WEEKOFYEAR(order.date_created) AS week " +
+            "FROM OrderItem oi " +
+            "JOIN oi.order order " +
+            "GROUP BY YEAR(order.date_created), WEEKOFYEAR(order.date_created) " +
+            "ORDER BY year ASC, week ASC")
+    List<SalesReport> findTotalSalesPerWeek();
 
 }
