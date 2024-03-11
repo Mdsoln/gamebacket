@@ -80,4 +80,10 @@ public class AdminController {
         List<SalesReport> weeklySales = adminService.findWeeklySales();
         return ResponseEntity.ok(weeklySales);
     }
+
+    @GetMapping("/number-of-users-registered")
+    public ResponseEntity<Integer> findNumberOfUsersRegistered(LocalDate startDate, LocalDate endDate) {
+        int numberOfUsersRegistered = adminService.findNumberOfUsersRegistered(startDate, endDate);
+        return ResponseEntity.ok(numberOfUsersRegistered);
+    }
 }
