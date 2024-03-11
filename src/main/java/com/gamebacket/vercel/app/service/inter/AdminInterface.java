@@ -16,4 +16,6 @@ public interface AdminInterface {
     List<SalesReport> findTodaysSales();
 
     List<SalesReport> findWeeklySales();
+
+    int findNumberOfUsersRegistered(LocalDate startDate, LocalDate endDate);
 }

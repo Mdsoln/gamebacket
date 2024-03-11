@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+
 @Repository
 public interface UserRepo extends JpaRepository<Customer,Long> {
     Customer findByUserEmail(String email);
@@ -19,5 +21,14 @@ public interface UserRepo extends JpaRepository<Customer,Long> {
     )
     Page<Object[]> findAllCustomers(Pageable pageable);
 
+    //total number of users registered per day
+    @Query("SELECT COUNT(userId) AS Total, date_created " +
+            "FROM Customer " +
+            "WHERE date_created >= :startDate AND date_created <= :endDate " +
+            "GROUP BY date_created"
+    )
+    int findTotalRegisteredUsersByDateRange(LocalDate startDate, LocalDate endDate);
 
+    //total number of users login to their accounts
+    //total number of users visits the website
 }

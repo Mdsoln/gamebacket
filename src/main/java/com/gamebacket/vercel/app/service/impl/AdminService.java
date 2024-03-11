@@ -35,6 +35,7 @@ public class AdminService implements AdminInterface {
     private final OrderRepo orderRepo;
     private final OrderStatusRepo orderStatusRepo;
     private final OrderItemRepo orderItemRepo;
+    private final UserRepo userRepo;
 
     @Override
     public void publishNewGame(String gameTitle, String gamePlatforms, float actualPrice,
@@ -116,6 +117,12 @@ public class AdminService implements AdminInterface {
     @Override
     public List<SalesReport> findWeeklySales() {
         return orderItemRepo.findTotalSalesPerWeek();
+    }
+
+    @Override
+    public int findNumberOfUsersRegistered(LocalDate startDate, LocalDate endDate) {
+        return userRepo.findTotalRegisteredUsersByDateRange(startDate, endDate) >= 1 ?
+                userRepo.findTotalRegisteredUsersByDateRange(startDate, endDate) : 0;
     }
 
 
