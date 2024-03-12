@@ -11,14 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin()
+
 @RestController
 @RequestMapping(path = "/api/v1/admin")
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
 
-    @CrossOrigin()
+
     @PostMapping("/publishGame")
     public ResponseEntity<String> publishGameToServer(
             @RequestParam(name = "gameTitle") @Valid String gameTitle,
@@ -44,7 +44,7 @@ public class AdminController {
     }
 
 
-    @CrossOrigin()
+
     @PostMapping("/publishAccessory")
     public ResponseEntity<String> publishProduct(
             @RequestParam(name = "productName",required = false) String productName,
@@ -58,7 +58,7 @@ public class AdminController {
         return ResponseEntity.ok("published successfully");
     }
 
-    @CrossOrigin()
+
     @PostMapping("/complete-order/{orderNo}")
     public ResponseEntity<String> confirmOrders(@PathVariable("orderNo") String orderNo
     ){
@@ -66,7 +66,7 @@ public class AdminController {
         return ResponseEntity.ok("completed");
     }
 
-    @CrossOrigin()
+
     @GetMapping("/totalSalesPerDay")
     public ResponseEntity<List<SalesReport>> findTotalSales(){
         List<SalesReport> dailySales = adminService.findTodaysSales();
@@ -74,7 +74,7 @@ public class AdminController {
 
     }
 
-    @CrossOrigin()
+
     @GetMapping("/totalSalesPerWeek")
     public ResponseEntity<List<SalesReport>> findTotalWeekSales(){
         List<SalesReport> weeklySales = adminService.findWeeklySales();

@@ -7,14 +7,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin()
+
 @RestController
 @RequestMapping(path = "/payments")
 @RequiredArgsConstructor
 public class PaymentController {
     private final PaymentFacade paymentFacade;
 
-    @CrossOrigin()
+
     @PostMapping("/makePayment")
     public ResponseEntity<PaymentResponse> payments(@RequestBody PaymentRequest request){
         PaymentResponse paymentResponse = paymentFacade.pay(request);

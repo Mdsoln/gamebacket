@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin()
+
 @RestController
 @RequestMapping(path = "/api/v1/base")
 @RequiredArgsConstructor
@@ -17,7 +17,7 @@ public class BaseController {
 
     private final BaseService baseService;
 
-    @CrossOrigin()
+
     @PostMapping("/createAccount")
     public ResponseEntity<AuthenticationResponse> userGameBacketAccount(
             @RequestBody User user
@@ -25,7 +25,7 @@ public class BaseController {
        return ResponseEntity.ok(baseService.createNewAccount(user));
     }
 
-    @CrossOrigin()
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request)
@@ -33,7 +33,7 @@ public class BaseController {
         return ResponseEntity.ok(baseService.authenticate(request));
     }
 
-    @CrossOrigin()
+
     @DeleteMapping("/deleteUser/{userId}")
     public ResponseEntity<String> deleteUserAccount(@PathVariable("userId") Long userId){
         baseService.deleteUserById(userId);
