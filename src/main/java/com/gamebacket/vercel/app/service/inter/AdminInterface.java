@@ -18,4 +18,6 @@ public interface AdminInterface {
     List<SalesReport> findWeeklySales();
 
     int findNumberOfUsersRegistered(LocalDate startDate, LocalDate endDate);
+
+    List<Object[]> findAllUsersRegisteredWithDateCreated();
 }

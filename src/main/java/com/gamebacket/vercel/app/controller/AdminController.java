@@ -81,9 +81,16 @@ public class AdminController {
         return ResponseEntity.ok(weeklySales);
     }
 
-    @GetMapping("/number-of-users-registered")
+    @GetMapping("/number-of-users-perDate")
     public ResponseEntity<Integer> findNumberOfUsersRegistered(LocalDate startDate, LocalDate endDate) {
         int numberOfUsersRegistered = adminService.findNumberOfUsersRegistered(startDate, endDate);
         return ResponseEntity.ok(numberOfUsersRegistered);
+    }
+
+    @GetMapping("/number-of-users")
+    public ResponseEntity<List<Object[]>> findAllUsersRegisteredWithDateCreated(){
+        List<Object[]> usersWithDateCreated = adminService.findAllUsersRegisteredWithDateCreated();
+        return ResponseEntity.ok(usersWithDateCreated);
+
     }
 }

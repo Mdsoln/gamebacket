@@ -125,6 +125,11 @@ public class AdminService implements AdminInterface {
                 userRepo.findTotalRegisteredUsersByDateRange(startDate, endDate) : 0;
     }
 
+    @Override
+    public List<Object[]> findAllUsersRegisteredWithDateCreated() {
+        return userRepo.findTotalRegisteredUsersByDateRange();
+    }
+
 
     @Scheduled(fixedRate = 1000 * 60 * 60, initialDelay = 1000) // Schedule every hour with a 1-second initial delay
     public void updateTodaysSales() {
