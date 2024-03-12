@@ -8,4 +8,6 @@ public interface UserInterface {
 
     void cancelOrder(String cancelOrder);
 
+    String resetPasswordForExistingUsers(String userEmail);
+
 }

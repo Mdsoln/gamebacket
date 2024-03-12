@@ -112,4 +112,38 @@ public class UserService implements UserInterface {
           }
     }
 
+    @Override
+    public String resetPasswordForExistingUsers(String userEmail) {
+        Customer existingUser = userRepo.findByUserEmail(userEmail);
+        if (existingUser.getUserEmail().equals(userEmail)){
+            String newPassword = generateRandomAlphanumericPassword();
+            existingUser.setPasswords(newPassword);
+            emailService.sendMailToSuppliers(userEmail,newPassword);
+
+            userRepo.save(existingUser);
+
+            return "Your new password has been sent to your email!";
+        }
+        else {
+
+            return "No matches with email provided";
+        }
+    }
+
+    private String generateRandomAlphanumericPassword() {
+        StringBuilder randomAlphanumericPassword = new StringBuilder(5);
+
+        String alphanumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        Random random = new Random();
+
+        for (int i = 0; i < 5; i++) {
+            int index = random.nextInt(alphanumeric.length());
+            char randomChar = alphanumeric.charAt(index);
+            randomAlphanumericPassword.append(randomChar);
+        }
+
+        return randomAlphanumericPassword.toString();
+    }
+
 }
