@@ -3,6 +3,7 @@ package com.gamebacket.vercel.app.controller;
 
 import com.gamebacket.vercel.app.service.impl.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,6 @@ public class UserController {
             @RequestParam(name = "userEmail") String userEmail
     ){
         String response = userService.resetPasswordForExistingUsers(userEmail);
-
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
