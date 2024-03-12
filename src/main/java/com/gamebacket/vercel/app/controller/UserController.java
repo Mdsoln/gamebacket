@@ -9,14 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 
-@CrossOrigin()
 @RestController
 @RequestMapping(path = "/api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
-    @CrossOrigin()
+
     @PostMapping("/place-order")
     public ResponseEntity<String> placeOrder(
             @RequestParam(name = "email") String customerEmail,
@@ -29,10 +28,18 @@ public class UserController {
         return ResponseEntity.ok("You have successfully placed your order");
     }
 
-    @CrossOrigin()
+
     @PostMapping("/cancel-order/{orderNo}")
     public ResponseEntity<String> cancelOrder(@PathVariable("orderNo") String orderNo){
         userService.cancelOrder(orderNo);
-        return ResponseEntity.ok("Oops! You have cancel your order, you may still have time to make it happen");
+        return ResponseEntity.ok("Oops! You have canceled your order, you may still have time to make it happen");
+    }
+
+    @PostMapping("/forget-password")
+    public ResponseEntity<String> resetUserPassword(
+            @RequestParam(name = "userEmail") String userEmail
+    ){
+        String response = userService.resetPasswordForExistingUsers(userEmail);
+
     }
 }
