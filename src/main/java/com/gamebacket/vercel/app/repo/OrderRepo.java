@@ -59,8 +59,4 @@ public interface OrderRepo extends JpaRepository<Order,Long> {
     Page<Object[]> findOrderWithCanceledStatus(Pageable pageable);
 }
 
-// TODO: 03/02/2024 returns total number of users registered per day, number of users visits the website and number of users login to their account
-// TODO: 03/02/2024 returns top selling products per day, per week and month and total price of sales
-// TODO: 03/02/2024 sales statics per month
-// TODO: 03/02/2024 add searching functionality for either products, users or orders to admin page
 
