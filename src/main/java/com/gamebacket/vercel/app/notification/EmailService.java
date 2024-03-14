@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class EmailService {
     private final JavaMailSender javaMailSender;
 
-    private static final String supplierEmail = "muddyfakih98@gmail.com";
+    private static final String supplierEmail = "********@gmail.com";
     public void sendMailToSuppliers(String customerEmail, String productName){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(supplierEmail);
